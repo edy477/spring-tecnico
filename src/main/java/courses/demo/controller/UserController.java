@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
 @Tag(name = "users", description = "users API")
-@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600, methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST}, allowedHeaders = "*")
 public class UserController {
 
 
@@ -124,7 +124,7 @@ public class UserController {
 
 
     @PostMapping(value = "/{username}/enroll",produces = "application/json;charset=utf-8")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+  //  @PreAuthorize("hasRole('ROLE_ADMIN')")
     // @ApiOperation(value = "${UserController.enroll}", response = UserResponseDTO.class, authorizations = { @Authorization(value="apiKey") })
     @ApiResponses(value = {//
             @ApiResponse(responseCode = "400", description = "Something went wrong"), //
@@ -139,8 +139,25 @@ public class UserController {
     }
 
 
-    @GetMapping(value = "/{username}/mycourses",produces = "application/json;charset=utf-8")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
+    /*@PostMapping(value = "/{username}/enrollcourse",produces = "application/json;charset=utf-8")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    // @ApiOperation(value = "${UserController.enroll}", response = UserResponseDTO.class, authorizations = { @Authorization(value="apiKey") })
+    @ApiResponses(value = {//
+            @ApiResponse(responseCode = "400", description = "Something went wrong"), //
+            @ApiResponse(responseCode = "403", description = "Access denied"), //
+            @ApiResponse(responseCode = "404", description = "The user doesn't exist"), //
+            @ApiResponse(responseCode = "500", description = "Expired or invalid JWT token")})
+    public Enrollment enroll(@Parameter(description = "course_id") @RequestParam Integer course_id, HttpServletRequest req) {
+
+        return userService.enrolluser( req, course_id);
+
+        // return modelMapper.map(userService.search(username), UserResponseDTO.class);
+    }*/
+
+
+    @GetMapping(value = "/users/{username}/mycourses",produces = "application/json;charset=utf-8")
+    @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST},allowedHeaders = "*")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
    // @@Operation( method= "${UserController.courses}", responses = {CoursesResponseDataDTO.class}, authorizations = { @Authorization(value="apiKey") })
     //@ApiOperation(value = "${UserController.me}", response = UserResponseDTO.class, authorizations = { @Authorization(value="apiKey") })
     @ApiResponses(value = {//

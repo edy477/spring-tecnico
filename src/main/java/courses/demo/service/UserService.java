@@ -107,6 +107,39 @@ public class UserService {
 
     }
 
+   /* public Enrollment enrollcourse(HttpServletRequest req, Integer course_id) {
+
+
+        User actual = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
+        Integer cs_id = actual.getId();
+        Courses ctms = courseRepo.getById(course_id);
+        //CoursesEntity cop = actual.getEnrollments().
+        final int[] flag = {0};
+        List<Enrollment> enrollments = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req))).getEnrollments();
+
+        for (Enrollment cts : enrollments) {
+
+            System.out.println(cts.getCourse_id());
+            if (cts.getCourse_id() == course_id) {
+                flag[0] = 1;
+            }
+
+        }
+
+        if (flag[0] != 1) {
+            enroll.setStudentEnrollment(actual);
+            enroll.setCoursesList(ctms);
+            enrollRepo.save(enroll);
+            return enroll;
+        } else {
+            throw new CustomException("Cant enroll the same course", HttpStatus.CONFLICT);
+        }
+
+
+    }*/
+
+
+
 
     public String unenroll( HttpServletRequest req, Integer course_id) {
 

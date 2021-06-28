@@ -3,6 +3,7 @@ package courses.demo.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     http.csrf().disable();
-
+    http.cors();
 
     final String[] AUTH_WHITELIST = {
             // -- Swagger UI v2
@@ -54,7 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/api/users/signin").permitAll()//
         .antMatchers("/api/users/signup").permitAll()//
         .antMatchers("/h2-console/**/**").permitAll()
-
+            .antMatchers(HttpMethod.OPTIONS, "/api/users/*").permitAll()
+            .antMatchers(HttpMethod.OPTIONS, "/api/*").permitAll()
         .anyRequest().authenticated();
    // If a user try to access a resource without having enough permissions
     http.exceptionHandling().accessDeniedPage("/api/users/login");
